@@ -41,9 +41,7 @@ export class ProductDetailComponent {
       .pipe(
         switchMap(params => {
           const idParam = params.get('id');
-          console.log('idParam', idParam)
           const id = idParam ? Number(idParam) : null;
-          console.log('id', id)
 
           if (!id) {
             this.error.set('Invalid product id');

@@ -103,7 +103,6 @@ PUT /products/{id}
   ## Trade-offs & Assumptions
 
   - No persistent backend.
-  - No advanced caching or synchronization.
   - Pagination uses simple offset logic.
   - Styling is intentionally minimal.
   - No global state libraries to keep implementation lightweight.
