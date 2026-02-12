@@ -53,9 +53,9 @@ PUT /products/{id}
   All data access goes through ProductsService.
 
   Components remain simple:
-  request data
-  render results
-  trigger actions
+  - request data
+  - render results
+  - trigger actions
 
   They do not own shared state.
 
@@ -69,13 +69,13 @@ PUT /products/{id}
 
   When lists are fetched:
 
-  API results are returned
+  - API results are returned
 
-  locally modified items override API versions
+  - locally modified items override API versions
 
-  duplicates are removed
+  - duplicates are removed
 
-  Refreshing the browser resets this state.
+  - Refreshing the browser resets this state.
 
   This approach keeps the solution simple while still behaving like a real application.
 
@@ -87,9 +87,9 @@ PUT /products/{id}
 
   Used for create/update flows to ensure:
 
-  predictable state
-  clear validation rules
-  easier maintenance
+  - predictable state
+  - clear validation rules
+  - easier maintenance
 
   ### Strong Typing
 
@@ -102,19 +102,19 @@ PUT /products/{id}
 
   ## Trade-offs & Assumptions
 
-  No persistent backend.
-  No advanced caching or synchronization.
-  Pagination uses simple offset logic.
-  Styling is intentionally minimal.
-  No global state libraries to keep implementation lightweight.
-  Focus placed on clarity and maintainability rather than features.
+  - No persistent backend.
+  - No advanced caching or synchronization.
+  - Pagination uses simple offset logic.
+  - Styling is intentionally minimal.
+  - No global state libraries to keep implementation lightweight.
+  - Focus placed on clarity and maintainability rather than features.
 
   ## What I Would Improve With More Time
 
-  improved UI/UX and responsive design
-  toast/snackbar notifications
-  unit and integration tests
-  accessibility improvements
-  environment-based configuration
-  abstraction layer for API access
-  optimistic updates with rollback strategies
+  - improved UI/UX and responsive design
+  - toast/snackbar notifications
+  - unit and integration tests
+  - accessibility improvements
+  - environment-based configuration
+  - abstraction layer for API access
+  - optimistic updates with rollback strategies
