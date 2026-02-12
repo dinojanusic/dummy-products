@@ -1,59 +1,120 @@
-# DummyProducts
+# Dummy Products – Angular Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.3.
+Small Angular application that consumes the public **DummyJSON** REST API and allows users to:
 
-## Development server
+- browse products
+- view product details
+- create new products
+- update existing products
 
-To start a local development server, run:
+## Setup Instructions
 
+### 1. Install dependencies
+```bash
+npm install
+```
+### Run dev server
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Open application at
 
-## Code scaffolding
+http://localhost:4200
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+## API
+### Data is fetched from:
 ```bash
-ng generate component component-name
+https://dummyjson.com/products
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+### Used endpoints:
 ```bash
-ng generate --help
+GET /products
+GET /products/{id}
+POST /products/add
+PUT /products/{id}
 ```
+## Application Structure
 
-## Building
+- **core/models**: Contains TypeScript interfaces for type safety.
+- **core/services**: Handles API communication and session management.
+- **features/products**: Contains feature-specific components and logic for products.
+  - **product-list**: Displays a list of products.
+  - **product-detail**: Shows details of a single product.
+  - **product-form**: Form to create or edit a product.
+- **shared/components**: Reusable UI components.
+  - **error**: Error display component.
+  - **loading**: Loading placeholder component.
+- **app.ts**: Main application bootstrap file.
+- **app.routes.ts**: Application routing configuration.
 
-To build the project run:
+  ## Key Architectural Decisions
 
-```bash
-ng build
-```
+  All data access goes through ProductsService.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+  Components remain simple:
+  request data
+  render results
+  trigger actions
 
-## Running unit tests
+  They do not own shared state.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+  This separation makes the system easier to reason about and maintain.
 
-```bash
-ng test
-```
+  ### Session-based Persistence
 
-## Running end-to-end tests
+  DummyJSON simulates create/update operations but does not persist them.
 
-For end-to-end (e2e) testing, run:
+  To provide a realistic UX, the service stores newly created or updated products in a local in-memory collection.
 
-```bash
-ng e2e
-```
+  When lists are fetched:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+  API results are returned
 
-## Additional Resources
+  locally modified items override API versions
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+  duplicates are removed
+
+  Refreshing the browser resets this state.
+
+  This approach keeps the solution simple while still behaving like a real application.
+
+  ### Standalone Components
+
+  Standalone components reduce boilerplate and make dependencies explicit at the component level.
+
+  ### Reactive Forms
+
+  Used for create/update flows to ensure:
+
+  predictable state
+  clear validation rules
+  easier maintenance
+
+  ### Strong Typing
+
+  Interfaces describe the API structure.
+  any is avoided to ensure safety and clarity.
+
+  ### Loading & Error Handling
+
+  Basic states are implemented to inform the user while requests are in progress or when they fail.
+
+  ## Trade-offs & Assumptions
+
+  No persistent backend.
+  No advanced caching or synchronization.
+  Pagination uses simple offset logic.
+  Styling is intentionally minimal.
+  No global state libraries to keep implementation lightweight.
+  Focus placed on clarity and maintainability rather than features.
+
+  ## What I Would Improve With More Time
+
+  improved UI/UX and responsive design
+  toast/snackbar notifications
+  unit and integration tests
+  accessibility improvements
+  environment-based configuration
+  abstraction layer for API access
+  optimistic updates with rollback strategies
